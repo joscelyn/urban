@@ -1,0 +1,35 @@
+syntax = "proto3";
+option go_package = "github.com/joscelyn/urban";
+package urban;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+message HNPost {
+    string title = 1; 
+    string url = 2; 
+}
+
+message ListResponse {
+    repeated HNPost posts = 1;
+}
+
+message GetTopStoriesResponse {
+    repeated HNPost posts = 1;
+}
+
+message WhoisRequest {
+    string username = 1; 
+}
+
+message WhoisResponse {
+    string user = 1;
+    int64 karma = 2;
+    string about = 3;
+    google.protobuf.Timestamp joined = 4;
+}
+
+service Urban {
+    rpc GetTopStories(google.protobuf.Empty) returns (GetTopStoriesResponse) {}
+    rpc Whois(WhoisRequest) returns (WhoisResponse) {}
+}
